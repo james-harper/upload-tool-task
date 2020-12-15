@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Uploader onFileAdded={file => dispatch(addFileToQueue(file))} />
 
-      <div className="container">
+      <div className="container pt-2">
         <UploadQueue
           files={queue}
           removeFromQueue={file => dispatch(removeFileFromQueue(file))}
