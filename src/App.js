@@ -1,13 +1,13 @@
 import { useReducer } from 'react';
 import Uploader from './components/Uploader';
-import { addFileToQueue, removeFileFromQueue, moveBackInQueue, moveForwardInQueue } from './actions';
+import { addFileToQueue, removeFileFromQueue, moveBackInQueue, moveForwardInQueue, clearQueue } from './actions';
 import { makeId } from './helpers';
 import reducer from './reducers';
 import initialState from './store';
 import './App.css';
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{queue}, dispatch] = useReducer(reducer, initialState);
 
   const addToQueue = (file) => {
     dispatch(
@@ -22,7 +22,7 @@ function App() {
       <hr />
       <div className="container">
         <ul className="list-group">
-          {state.queue.map((file, i) => (
+          {queue.map((file, i) => (
             <li key={makeId(file)} className="list-group-item">
               <div className="row">
                 <div className="col">{file.name}</div>
@@ -42,7 +42,7 @@ function App() {
                   <button
                     className="btn btn-block btn-primary"
                     onClick={() => dispatch(moveBackInQueue(file))}
-                    disabled={i === state.queue.length - 1}
+                    disabled={i === queue.length - 1}
                   >
                     ↓
                   </button>
@@ -51,6 +51,19 @@ function App() {
             </li>
           ))}
         </ul>
+
+        {queue.length > 0 && (
+          <div className="row justify-content-end pt-2">
+            <div className="col-4">
+              <button
+                className="btn btn-block btn-danger"
+                onClick={() => dispatch(clearQueue())}
+              >
+                Clear Queue
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

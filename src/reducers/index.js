@@ -1,5 +1,5 @@
 import initialState from '../store';
-import { ADD_TO_QUEUE, REMOVE_FROM_QUEUE, REORDER_QUEUE_BACK, REORDER_QUEUE_FORWARD } from './../actions';
+import { ADD_TO_QUEUE, REMOVE_FROM_QUEUE, REORDER_QUEUE_BACK, REORDER_QUEUE_FORWARD, CLEAR_QUEUE } from './../actions';
 import { makeId } from './../helpers';
 
 function filterQueue(queue, file) {
@@ -18,6 +18,13 @@ export default function reducer (state = initialState, action) {
     return {
       ...state,
       queue: filterQueue(state.queue, action.payload)
+    };
+  }
+
+  if (action.type === CLEAR_QUEUE) {
+    return {
+      ...state,
+      queue: []
     };
   }
 
