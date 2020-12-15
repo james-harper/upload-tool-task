@@ -1,6 +1,12 @@
 import UploadQueueItem from './UploadQueueItem';
 
-const UploadQueue = ({ files, removeFromQueue, moveForwardInQueue, moveBackInQueue }) => {
+const UploadQueue = ({
+  files,
+  removeFromQueue = () => {},
+  moveForwardInQueue = () => {},
+  moveBackInQueue = () => {},
+  renameFile = () => {}
+}) => {
   return (
     <ul className="list-group">
       {files.map((file, i) => (
@@ -11,6 +17,7 @@ const UploadQueue = ({ files, removeFromQueue, moveForwardInQueue, moveBackInQue
           removeFromQueue={removeFromQueue}
           moveForwardInQueue={moveForwardInQueue}
           moveBackInQueue={moveBackInQueue}
+          renameFile={renameFile}
         />
       ))}
     </ul>

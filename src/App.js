@@ -1,7 +1,14 @@
 import { useReducer } from 'react';
 import Uploader from './components/Uploader';
 import UploadQueue from './components/UploadQueue';
-import { addFileToQueue, removeFileFromQueue, moveBackInQueue, moveForwardInQueue, clearQueue } from './actions';
+import {
+  addFileToQueue,
+  removeFileFromQueue,
+  moveBackInQueue,
+  moveForwardInQueue,
+  clearQueue,
+  renameFile
+} from './actions';
 import reducer from './reducers';
 import initialState from './store';
 import './App.css';
@@ -19,6 +26,7 @@ function App() {
           removeFromQueue={file => dispatch(removeFileFromQueue(file))}
           moveForwardInQueue={file => dispatch(moveForwardInQueue(file))}
           moveBackInQueue={file => dispatch(moveBackInQueue(file))}
+          renameFile={(file, newName) => dispatch(renameFile(file, newName))}
         />
 
         {queue.length > 0 && (
