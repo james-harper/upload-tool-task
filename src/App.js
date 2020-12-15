@@ -39,6 +39,18 @@ function App() {
                 Clear Queue
               </button>
             </div>
+
+            <div className="col-4">
+              <button
+                className="btn btn-block btn-success"
+                onClick={() => {
+                  alert('Files uploaded!');
+                  dispatch(clearQueue());
+                }}
+              >
+                Upload {queue.length} file(s)
+              </button>
+            </div>
           </div>
         )}
       </div>

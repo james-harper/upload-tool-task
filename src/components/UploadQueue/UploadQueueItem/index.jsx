@@ -13,8 +13,7 @@ const UploadQueueItem = ({
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(file.name);
 
-  const handleSave = (e) => {
-    console.log('new name', value);
+  const handleSave = () => {
     renameFile(file, value);
     setIsEditing(false);
   }
