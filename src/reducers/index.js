@@ -4,10 +4,10 @@ import {
   REMOVE_FROM_QUEUE,
   REORDER_QUEUE_BACK,
   REORDER_QUEUE_FORWARD,
-  CLEAR_QUEUE
+  CLEAR_QUEUE,
+  RENAME_FILE
 } from './../actions';
 import { makeId } from './../helpers';
-import { RENAME_FILE } from './../actions/index';
 
 // Helper function for filtering by ID
 function filterQueue(queue, file) {
