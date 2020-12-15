@@ -1,8 +1,13 @@
 import { useRef } from 'react';
 import './Uploader.css';
 
-const Uploader = () => {
+const Uploader = ({ onFileAdded = () => {}}) => {
   const inputRef = useRef(null);
+
+  const preventDefault = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
 
   const handleClick = () => {
     if (inputRef.current) {
@@ -11,16 +16,35 @@ const Uploader = () => {
     }
   }
 
+  const handleDrop = (e) => {
+    e.preventDefault()
+
+    const files = [...e.dataTransfer.files];
+    if (files.length) {
+      files.forEach(file => {
+        onFileAdded(file);
+      });
+      e.dataTransfer.clearData()
+    }
+  }
+
   return (
-    <form method="post" className="uploader" onClick={handleClick}>
-      <div>Drag and drop files or click to upload.</div>
-      <input
-        ref={inputRef}
-        id="upload"
-        type="file"
-        multiple=""
-      />
-    </form>
+    <div
+      className="uploader"
+      onClick={handleClick}
+      onDragOver={preventDefault}
+      onDragEnter={preventDefault}
+      onDragLeave={preventDefault}
+      onDrop={handleDrop}
+    >
+        <div>Drag and drop files or click to upload.</div>
+        <input
+          ref={inputRef}
+          id="upload"
+          type="file"
+          multiple=""
+        />
+    </div>
   );
 }
 
