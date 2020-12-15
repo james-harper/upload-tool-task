@@ -2,20 +2,34 @@ import { useRef } from 'react';
 import './Uploader.css';
 
 const Uploader = ({ onFileAdded = () => {}}) => {
+  // Reference to hidden 'file' input
   const inputRef = useRef(null);
 
+  // Prevent default browser behaviour when dropping files
   const preventDefault = (e) => {
     e.preventDefault();
     e.stopPropagation();
   }
 
+  // Required to open file upload dialog by clicking anywhere
+  // within uploader
   const handleClick = () => {
     if (inputRef.current) {
-      // Open file upload dialog
       inputRef.current.click();
     }
   }
 
+  // Handle file upload dialog
+  const handleFileChange = (e) => {
+    const files = [...e.target.files];
+    if (files.length) {
+      files.forEach(file => {
+        onFileAdded(file);
+      });
+    }
+  }
+
+  // Handle drag & drop upload
   const handleDrop = (e) => {
     e.preventDefault()
 
@@ -40,9 +54,10 @@ const Uploader = ({ onFileAdded = () => {}}) => {
         <div>Drag and drop files or click to upload.</div>
         <input
           ref={inputRef}
-          id="upload"
           type="file"
-          multiple=""
+          name="files[]"
+          multiple
+          onChange={handleFileChange}
         />
     </div>
   );
