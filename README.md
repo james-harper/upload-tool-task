@@ -10,4 +10,4 @@
 
 ## Notes
 
-- I stopped developing this due to time constraints. If I had had more time I would have added some tests (mainly for the reducer). I would have made the reordering logic more generic (instead of move up/down by 1 position it would be better to be able to specify the new index).
+- I stopped developing this due to time constraints. If I had had more time I would have added some tests (mainly for the reducer). I would have made the reordering logic more generic (instead of move up/down by 1 position it would be better to be able to specify the new index). Would also add something like propTypes or Typescript to make it more obvious what kind of props were expected by each component.
