@@ -1,32 +1,57 @@
 import { useReducer } from 'react';
 import Uploader from './components/Uploader';
-import { addFileToQueue } from './actions';
+import { addFileToQueue, removeFileFromQueue, moveBackInQueue, moveForwardInQueue } from './actions';
+import { makeId } from './helpers';
 import reducer from './reducers';
 import initialState from './store';
 import './App.css';
-
-// Files might have duplicate names, but are unlikely to have
-// same name and last modified timestamp.
-// However, it is possible so in a production app a more unique id would be used
-const makeId = (file) => `${file.name}_${file.lastModified}`;
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToQueue = (file) => {
-    console.log('Adding', file)
     dispatch(
       addFileToQueue(file)
     );
-  };
+  }
 
   return (
     <div className="App">
       <Uploader onFileAdded={addToQueue} />
 
-      {state.queue.map(file => (
-        <div key={makeId(file)}>{file.name}</div>
-      ))}
+      <hr />
+      <div className="container">
+        <ul className="list-group">
+          {state.queue.map((file, i) => (
+            <li key={makeId(file)} className="list-group-item">
+              <div className="row">
+                <div className="col">{file.name}</div>
+                <div className="col-2">
+                  <button className="btn btn-block btn-danger" onClick={() => dispatch(removeFileFromQueue(file))}>REMOVE</button>
+                </div>
+                <div className="col-1">
+                  <button
+                    className="btn btn-block btn-primary"
+                    onClick={() => dispatch(moveForwardInQueue(file))}
+                    disabled={i === 0}
+                  >
+                    ↑
+                  </button>
+                </div>
+                <div className="col-1">
+                  <button
+                    className="btn btn-block btn-primary"
+                    onClick={() => dispatch(moveBackInQueue(file))}
+                    disabled={i === state.queue.length - 1}
+                  >
+                    ↓
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

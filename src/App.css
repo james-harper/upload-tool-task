@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   background-color: #E8E9EC;
   min-height: 100vh;
   display: flex;
@@ -7,4 +6,8 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
