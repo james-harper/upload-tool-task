@@ -1,5 +1,11 @@
 import initialState from '../store';
-import { ADD_TO_QUEUE, REMOVE_FROM_QUEUE, REORDER_QUEUE_BACK, REORDER_QUEUE_FORWARD, CLEAR_QUEUE } from './../actions';
+import {
+  ADD_TO_QUEUE,
+  REMOVE_FROM_QUEUE,
+  REORDER_QUEUE_BACK,
+  REORDER_QUEUE_FORWARD,
+  CLEAR_QUEUE
+} from './../actions';
 import { makeId } from './../helpers';
 import { RENAME_FILE } from './../actions/index';
 
@@ -71,7 +77,7 @@ export default function reducer (state = initialState, action) {
     const index = state.queue.findIndex(file => makeId(file) === id);
 
     if (index === 0) {
-      // Already at back of queue, no need to move anything
+      // Already at front of queue, no need to move anything
       return state;
     }
 
